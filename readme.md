@@ -30,4 +30,4 @@ optional arguments:
 ```
 
 
-<a href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov"  target="_blank">视频示例</a>
+<a href="http://oiqwnrsx4.bkt.clouddn.com/xupload.gif" target="_blank">视频示例</a>
