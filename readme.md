@@ -29,6 +29,7 @@ optional arguments:
   -r R               Load HTTP request from a file
 ```
 
-## eg
+### eg
 
-<iframe style="width:200% height:100%" src="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov" frameborder="0" allowfullscreen></iframe>
+[![dvwa](https://asciinema.org/a/42383.png)](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
+
