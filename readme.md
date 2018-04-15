@@ -31,5 +31,5 @@ optional arguments:
 
 ### eg
 
-[![dvwa](https://asciinema.org/a/42383.png)](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
+[![dvwa]](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
 
