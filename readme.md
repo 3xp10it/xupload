@@ -29,9 +29,7 @@ optional arguments:
   -r R               Load HTTP request from a file
 ```
 
-### eg
-
-[![dvwa](http://share.gifyoutube.com/KzB6Gb.gif)](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
+## eg
 
 
 <iframe 
