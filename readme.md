@@ -29,5 +29,8 @@ optional arguments:
   -r R               Load HTTP request from a file
 ```
 
+eg.
+
+`python3 -u http://192.168.8.190/vulnerabilities/upload/ --cookie "PHPSESSID=v7rebkn2dn8ln1ebuqfhjf00s4;security=low" --batch`
 
 <a target="_blank" href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov">视频示例</a>
