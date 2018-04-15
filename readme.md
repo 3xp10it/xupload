@@ -31,8 +31,4 @@ optional arguments:
 
 ## eg
 
-<video id="video" controls="" preload="none" poster="http://media.w3.org/2010/05/sintel/poster.png">
-      <source id="mp4" src="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov" type="video/mp4">
-</video>
-
-
+[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
