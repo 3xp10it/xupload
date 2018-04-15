@@ -29,6 +29,5 @@ optional arguments:
   -r R               Load HTTP request from a file
 ```
 
-## eg
 
-[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://oiqwnrsx4.bkt.clouddn.com/xupload.mov)
+<a href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov"  target="_blank">视频示例</a>
