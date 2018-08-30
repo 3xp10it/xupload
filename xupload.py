@@ -7,8 +7,6 @@ import urllib.parse
 import sys
 import argparse
 import chardet
-exp10it_module_path = "/media/psf/Home/exp10it/"
-sys.path.insert(0, exp10it_module_path)
 from exp10it import get_request
 from exp10it import get_param_part_from_content
 
@@ -113,12 +111,13 @@ def post_multipart_form_data(packet):
         header_part = re.search(b"(^[\s\S]+?)(?=\r\n\r\n)", packet).group(1)
         header_list = re.findall(b"(\S+): ([^\r\n]+)", header_part)
         for each in header_list:
-            if each[0] not in [b'Host', b'Content-Length']:
+            # 这里要将Accept-Encoding字段去除，因为如果原请求包中的Accept-Encoding值为gzip,deflate时服务器可能会返回压缩后的内容，导致后面的chardet.detect失败
+            if each[0] not in [b'Host', b'Content-Length',b'Accept-Encoding']:
                 headers[each[0].decode('utf8')] = each[1].decode('utf8')
         data = re.search(b"((\r\n\r\n)|(\n\n))([\s\S]*)", packet).group(4)
-        proxy = urllib.request.ProxyHandler({'http': '127.0.0.1:8080'})
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
+        #proxy = urllib.request.ProxyHandler({'http': '127.0.0.1:8080'})
+        #opener = urllib.request.build_opener(proxy)
+        #urllib.request.install_opener(opener)
         req = urllib.request.Request(
             url, headers=headers, data=data)
         with urllib.request.urlopen(req) as response:
@@ -1064,6 +1063,7 @@ if use_packet_file:
         cookie = re.search(b'Cookie: ([^\r\n]+)', packet_file_bytes).group(1)
     except:
         cookie=b''
+
     rsp = get_request(referer.decode("utf8"), cookie=cookie.decode("utf8"))
     origin_html = rsp['content']
     boundary = re.search(
