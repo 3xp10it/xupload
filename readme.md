@@ -41,4 +41,4 @@ eg.
 
 `-r`参数是在xupload.py无法自动识别url对应的html中上传表单时要用到的参数(一般通过插件实现上传功能的url无法通过xupload.py自动获取上传表单),用于指定一个http上传文件时拦截到的请求包,如果url是https开头则需要指定`--force-ssl`.
 
-<a target="_blank" href="http://oiqwnrsx4.bkt.clouddn.com/xupload.mov">视频示例</a>
+<a target="_blank" href="https://video-1256975153.cos.ap-chengdu.myqcloud.com/xupload.mov">视频示例</a>
